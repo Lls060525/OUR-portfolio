@@ -1,0 +1,23 @@
+{
+  "title": "Tap N Chow",
+  "summary": "Online food ordering system. Replace with one sentence on what it does.",
+  "category": "project",
+  "date": "",
+  "featured": false,
+  "tech": [],
+  "cover": "",
+  "links": {
+    "repo": "https://github.com/Lls060525/Online-Ordering-System-Tap-N-Chow-",
+    "demo": "",
+    "video": ""
+  },
+  "contributors": [
+    {
+      "id": "lee-long-sheng",
+      "did": "Fill in what you built."
+    }
+  ],
+  "problem": "",
+  "solution": "",
+  "outcome": ""
+}

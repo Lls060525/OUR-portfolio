@@ -1,0 +1,33 @@
+{
+  "title": "Space Mission Design Game",
+  "summary": "Our entry for NASA Space Apps Challenge 2026 (14–15 November): a game where players design a space mission. Build starts at the event.",
+  "category": "hackathon",
+  "event": "NASA Space Apps Challenge 2026",
+  "status": "upcoming",
+  "date": "2026-11",
+  "featured": false,
+  "tech": [],
+  "cover": "",
+  "links": {
+    "repos": [],
+    "demo": "",
+    "video": ""
+  },
+  "contributors": [
+    {
+      "id": "lee-long-sheng",
+      "did": "To be updated after the event."
+    },
+    {
+      "id": "soo-jian-huang",
+      "did": "To be updated after the event."
+    },
+    {
+      "id": "ng-hong-sang",
+      "did": "To be updated after the event."
+    }
+  ],
+  "problem": "We picked the Space Mission Design Game challenge. Add why you chose it and what you want players to learn.",
+  "solution": "",
+  "outcome": ""
+}

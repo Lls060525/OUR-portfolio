@@ -1,0 +1,57 @@
+[
+  {
+    "id": "lee-long-sheng",
+    "name": "Lee Long Sheng",
+    "short": "Long Sheng",
+    "role": "Bachelor of Information Security",
+    "tagline": "One line about what you're best at, e.g. secure web apps and penetration testing.",
+    "bio": "Replace with 2–3 sentences: what you study, what you enjoy building, and what kind of role you're looking for.",
+    "skills": [
+      "Web security",
+      "React",
+      "Django",
+      "Kotlin"
+    ],
+    "links": {
+      "github": "https://github.com/your-username",
+      "linkedin": "https://www.linkedin.com/in/your-username",
+      "resume": ""
+    }
+  },
+  {
+    "id": "soo-jian-huang",
+    "name": "Soo Jian Huang",
+    "short": "Jian Huang",
+    "role": "Bachelor of Information Security",
+    "tagline": "One line about what Jian Huang is best at.",
+    "bio": "Replace with 2–3 sentences about Jian Huang.",
+    "skills": [
+      "Network security",
+      "Python",
+      "Linux"
+    ],
+    "links": {
+      "github": "https://github.com/username",
+      "linkedin": "https://www.linkedin.com/in/username",
+      "resume": ""
+    }
+  },
+  {
+    "id": "ng-hong-sang",
+    "name": "Ng Hong Sang",
+    "short": "Hong Sang",
+    "role": "Bachelor of Software Engineering",
+    "tagline": "One line about what Hong Sang is best at.",
+    "bio": "Replace with 2–3 sentences about Hong Sang.",
+    "skills": [
+      "Java",
+      "React",
+      "SQL"
+    ],
+    "links": {
+      "github": "https://github.com/username",
+      "linkedin": "https://www.linkedin.com/in/username",
+      "resume": ""
+    }
+  }
+]

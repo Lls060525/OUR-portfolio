@@ -1,0 +1,35 @@
+{
+  "title": "ExpertLink",
+  "summary": "Consultation booking platform where clients find consultants, book time slots, pay with Stripe and check in with a QR e-ticket.",
+  "category": "project",
+  "event": "BMIT2023 Web and Mobile Systems",
+  "status": "in-progress",
+  "date": "2026-11",
+  "featured": true,
+  "tech": [
+    "ASP.NET Core MVC",
+    ".NET 10",
+    "C#",
+    "Entity Framework Core",
+    "SQL Server",
+    "SignalR",
+    "Stripe API",
+    "Bootstrap 5",
+    "Leaflet"
+  ],
+  "cover": "",
+  "links": {
+    "repo": "https://github.com/Lls060525/ExpertLink",
+    "demo": "",
+    "video": ""
+  },
+  "contributors": [
+    {
+      "id": "lee-long-sheng",
+      "did": "Committed the codebase, including the Stripe Checkout integration with verified payments and automatic refunds. Update this with the modules you own."
+    }
+  ],
+  "problem": "Finding and booking a professional consultant usually means phone calls and back-and-forth messages, with no clear view of free slots, prices or the consultant's credentials.",
+  "solution": "A three-role web app for admins, consultants and clients. Consultants set weekly availability and service packages, and show their office on a map. Clients search the directory, pick a slot on an interactive calendar, and pay by card or Stripe; unpaid bookings auto-cancel after 30 minutes and cancellations follow a 24-hour refund policy. Appointments come with a QR e-ticket that the consultant scans to check the client in, and real-time chat and notifications run over SignalR. Security includes cookie auth with role-based access, a self-written captcha, lockout after three failed logins, and token-based email verification and password reset.",
+  "outcome": "In progress. Add your grade or demo feedback when it's done."
+}

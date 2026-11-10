@@ -1,0 +1,36 @@
+{
+  "title": "Mobile2U",
+  "summary": "Online smartphone store with a full storefront, Stripe checkout, PDF e-receipts and a 35-screen admin panel.",
+  "category": "project",
+  "event": "BMIT2013 Web-Based Integrated Systems",
+  "date": "2026-08",
+  "featured": true,
+  "tech": [
+    "PHP",
+    "MySQL",
+    "Stripe Checkout",
+    "PHPMailer",
+    "Dompdf",
+    "JavaScript",
+    "Composer"
+  ],
+  "cover": "",
+  "links": {
+    "repo": "https://github.com/Lls060525/Web-Based-Integrated-Systems-Assignment",
+    "demo": "",
+    "video": ""
+  },
+  "contributors": [
+    {
+      "id": "lee-long-sheng",
+      "did": "Login, registration and logout, the shared site header and layout, and the first version of the admin product pages."
+    },
+    {
+      "name": "Rest of the team",
+      "did": "Product maintenance, cart and checkout, orders and fulfilment, and member and admin tools. Replace with each member's name and module."
+    }
+  ],
+  "problem": "A shop selling phones online needs more than a product list: variants and specs, stock that stays correct when two people buy at once, payments, receipts, and staff tools to run it all.",
+  "solution": "A PHP and MySQL e-commerce site. Customers browse and compare phones, manage a wishlist and addresses, pay through Stripe Checkout, earn reward points, apply vouchers, and get PDF e-receipts by email. Staff get role-based access to 35 admin screens for products, specs, photos, stock, orders, cancellations, reviews and batch CSV import. Stock and order updates run inside database transactions. A security audit added .htaccess protection for .git and database files, fixed an open redirect, and added login blocking and a captcha.",
+  "outcome": "Add your grade, or what you learned."
+}

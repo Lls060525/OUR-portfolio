@@ -1,0 +1,55 @@
+{
+  "title": "NeighbourShield",
+  "summary": "Township safety system: one-tap SOS with GPS, volunteer responders, WhatsApp alerts and an admin command dashboard. Built for the Sime Darby hackathon.",
+  "category": "hackathon",
+  "event": "Sime Darby Hackathon",
+  "date": "2026-10",
+  "featured": true,
+  "tech": [
+    "Django REST Framework",
+    "Flutter",
+    "MySQL",
+    "Celery",
+    "Redis",
+    "Twilio WhatsApp API",
+    "Geolocator",
+    "flutter_map"
+  ],
+  "cover": "",
+  "links": {
+    "repos": [
+      {
+        "label": "Backend & dashboard",
+        "url": "https://github.com/JACKNG0926/NeighbourShield_Web"
+      },
+      {
+        "label": "Mobile app",
+        "url": "https://github.com/JACKNG0926/NeighbourShield_MobileApp"
+      }
+    ],
+    "demo": "",
+    "video": ""
+  },
+  "contributors": [
+    {
+      "id": "lee-long-sheng",
+      "did": "Admin web dashboard: map view with pinned incidents and area radius, real-time notifications and urgent broadcast alerts, incident reports, volunteer approval, community posts, and the dashboard UI. SOS reporting in the mobile app."
+    },
+    {
+      "id": "soo-jian-huang",
+      "did": "WhatsApp SOS alerts via Twilio, Celery + Redis background processing, registration validation, profile editing and password reset, and image uploads for posts and reports."
+    },
+    {
+      "id": "ng-hong-sang",
+      "did": "Set up both repositories and built the initial Flutter app with MVVM architecture. Volunteer verification, nearby-SOS filtering and the SOS response flow."
+    },
+    {
+      "name": "Winson Tan",
+      "did": "Community safety reports, emergency broadcast sync, urgent announcements, likes and comments, and SOS button reliability fixes in the mobile app."
+    }
+  ],
+  "problem": "When something goes wrong in a residential township, residents have no fast, reliable way to reach security and nearby neighbours. Alerts get lost in group chats, nobody knows who is responding, and there is no record of what happened.",
+  "solution": "A Flutter app for residents and volunteers with a one-tap SOS that sends GPS location, a community safety feed and hazard reports, and full-screen emergency broadcasts. A Django REST backend runs the SOS workflow: nearby volunteers and security are notified, acknowledgements are tracked, unanswered alerts escalate automatically, and WhatsApp messages go out through Twilio. Township admins manage areas, properties, volunteers and broadcasts from a web dashboard with a live incident map. Access is token-based with resident, volunteer and admin roles, and residents can only see their own incidents.",
+  "outcome": "Add your result here: placement, judges' feedback, or what you learned building it in the hackathon time limit.",
+  "alsoProject": true
+}

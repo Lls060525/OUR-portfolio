@@ -1,4 +1,4 @@
-import { projects, personById, formatDate } from '../data.js'
+import { projects, personById, formatDate, kindLabel } from '../data.js'
 import { href } from '../router.js'
 import { Tags, Cover, initials, STATUS } from '../components.jsx'
 
@@ -31,13 +31,13 @@ export default function Project({ slug }) {
     <article className="case">
       <a className="back" href={href()}>← all projects</a>
 
-      <p className="eyebrow">
+      <p className="eyebrow" data-print="seq">
         <span className="pulse" />
-        {[p.event || (p.category === 'hackathon' ? 'hackathon' : 'project'), formatDate(p.date), STATUS[p.status]]
+        {[kindLabel(p), p.event, formatDate(p.date), STATUS[p.status]]
           .filter(Boolean).join(' // ')}
       </p>
-      <h1 style={{ viewTransitionName: `title-${p.slug}` }}>{p.title}</h1>
-      <p className="lead">{p.summary}</p>
+      <h1 data-print="decode-seq" style={{ viewTransitionName: `title-${p.slug}` }}>{p.title}</h1>
+      <p className="lead" data-print="seq">{p.summary}</p>
 
       <div className="actions">
         {p.links?.demo && <a className="btn primary" href={p.links.demo} target="_blank" rel="noopener noreferrer">Live demo ↗</a>}
@@ -54,7 +54,7 @@ export default function Project({ slug }) {
           : <Cover project={p} className="cover-lg" />}
       </div>
 
-      <section className="who glass reveal" style={{ '--i': 0 }}>
+      <section className="who glass scene">
         <h2 className="panel-label">// who built what</h2>
         <ul>
           {p.contributors?.map((c) => {
@@ -76,10 +76,10 @@ export default function Project({ slug }) {
       </section>
 
       {sections.map(([title, text], i) => (
-        <section key={title} className="story reveal" style={{ '--i': i + 1 }}>
+        <section key={title} className="story scene">
           <span className="section-index">{String(i + 1).padStart(2, '0')}</span>
           <div>
-            <h2>{title}</h2>
+            <h2 data-print="view">{title}</h2>
             <p>{text}</p>
           </div>
         </section>

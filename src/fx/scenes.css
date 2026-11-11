@@ -1,0 +1,184 @@
+/* ═════════════════════════════════════════════════════════════
+   SCROLL SCENES, SLIDE DECK, MATRIX PRINT
+   --p / --a / .live are written by fx/motion.js every frame.
+   ═════════════════════════════════════════════════════════════ */
+
+/* ───────────── smooth scroll (Lenis) ───────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* ───────────── matrix rain backdrop ───────────── */
+.matrix-rain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(#000 0%, rgba(0, 0, 0, .7) 60%, transparent 100%);
+}
+
+/* ───────────── matrix print ───────────── */
+[data-print="seq"]:not(.printed),
+[data-print="view"]:not(.printed) { visibility: hidden; }
+.hero > [data-print] { animation: none; }
+
+.printing,
+.printing * {
+  color: #7dffb0 !important;
+  -webkit-text-fill-color: #7dffb0;
+  text-shadow: 0 0 10px rgba(74, 222, 128, .7), 0 0 2px rgba(74, 222, 128, .9);
+}
+.printed:not(.printing) { animation: phosphor .9s ease-out; }
+@keyframes phosphor {
+  from { text-shadow: 0 0 14px rgba(74, 222, 128, .6); filter: brightness(1.4); }
+}
+.printing::after {
+  content: "█";
+  margin-left: 2px;
+  color: #7dffb0;
+  animation: blink .5s steps(1) infinite;
+}
+/* inline-level titles keep the cursor on the same line */
+.section-title.printing::after { flex: none; height: auto; background: none; align-self: auto; }
+
+/* ───────────── scenes ───────────── */
+.scene {
+  --p: 0;
+  --a: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  transform:
+    perspective(1400px)
+    translate3d(0, calc(var(--p) * -36px), calc(var(--a) * -180px))
+    rotateX(calc(var(--p) * 9deg));
+  opacity: calc(1 - var(--a) * .8);
+}
+
+/* ───────────── deck ───────────── */
+.filters {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(5, 6, 11, .72);
+  backdrop-filter: blur(14px);
+  margin: -4px 0 8px;
+}
+.filters .seg { border: 0; background: none; backdrop-filter: none; padding: 0; }
+
+.deck { display: flex; flex-direction: column; }
+
+.slide {
+  min-height: 82vh;
+  display: grid;
+  align-items: center;
+  padding: 6vh 0;
+}
+.slide-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 36px;
+  padding: 20px;
+  align-items: center;
+  transition: box-shadow .6s var(--ease), border-color .6s;
+}
+.slide.live .slide-inner {
+  border-color: rgba(34, 211, 238, .25);
+  box-shadow: 0 30px 80px -30px rgba(34, 211, 238, .25), 0 0 0 1px rgba(167, 139, 250, .08);
+}
+.slide-inner::after { opacity: 0; }
+.slide:hover .slide-inner::after { opacity: 1; }
+
+/* cover: scans in top → bottom when the slide goes live */
+.slide-cover {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  border-radius: 14px;
+  overflow: hidden;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path .9s cubic-bezier(.65, 0, .35, 1);
+}
+.slide.live .slide-cover { clip-path: inset(0 0 0 0); }
+.slide-cover .cover { border-radius: 14px; }
+.slide-cover .cover-glyph { font-size: clamp(90px, 14vw, 170px); }
+.slide-cover .badges { top: 14px; left: 14px; }
+.slide-scan {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--cyan);
+  box-shadow: 0 0 22px 6px rgba(34, 211, 238, .6);
+  opacity: 0;
+  pointer-events: none;
+}
+.slide.live .slide-scan { animation: slide-scan .9s cubic-bezier(.65, 0, .35, 1); }
+@keyframes slide-scan {
+  0% { top: 0; opacity: 1; }
+  90% { top: calc(100% - 3px); opacity: 1; }
+  100% { top: calc(100% - 3px); opacity: 0; }
+}
+.slide-cover:hover .cover img, .slide-cover:hover .cover-glyph { transform: scale(1.06); }
+
+/* text column: lines assemble one by one, then dissolve when you scroll away */
+.slide-info { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 8px 8px 8px 0; }
+.slide-info > * {
+  opacity: 0;
+  transform: translate3d(-24px, 0, 0);
+  filter: blur(6px);
+  transition: opacity .5s var(--ease), transform .6s var(--ease), filter .5s;
+  transition-delay: 0s;
+}
+.slide.live .slide-info > * {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition-delay: calc(var(--k, 0) * 70ms + 200ms);
+}
+.slide-info > :nth-child(1) { --k: 0; }
+.slide-info > :nth-child(2) { --k: 1; }
+.slide-info > :nth-child(3) { --k: 2; }
+.slide-info > :nth-child(4) { --k: 3; }
+.slide-info > :nth-child(5) { --k: 4; }
+.slide-info > :nth-child(6) { --k: 5; }
+.slide-info > :nth-child(7) { --k: 6; }
+.slide-info > :nth-child(8) { --k: 7; }
+.slide-info > :nth-child(9) { --k: 8; }
+
+.slide-index {
+  font: 700 54px/1 var(--mono);
+  letter-spacing: -.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(167, 139, 250, .6);
+}
+.slide-index span { font-size: 18px; -webkit-text-stroke: 0; color: var(--muted); margin-left: 6px; letter-spacing: 0; }
+.slide-info h3 { margin: 0; font-size: clamp(26px, 3.4vw, 40px); letter-spacing: -.025em; line-height: 1.1; }
+.slide-info h3 a { text-decoration: none; transition: color .2s; }
+.slide-info h3 a:hover { color: var(--cyan); }
+.slide-summary { margin: 0; color: #c3cadb; font-size: 16.5px; }
+.slide-info .role { -webkit-line-clamp: 4; }
+.slide-open { width: fit-content; margin-top: 6px; }
+
+/* ───────────── responsive & reduced motion ───────────── */
+@media (max-width: 860px) {
+  .slide { min-height: 0; padding: 4vh 0; }
+  .slide-inner { grid-template-columns: 1fr; gap: 18px; padding: 12px; }
+  .slide-info { padding: 0 6px 8px; }
+  .slide-index { font-size: 40px; }
+  .scene { transform: perspective(1400px) translate3d(0, calc(var(--p) * -20px), calc(var(--a) * -90px)); }
+  .filters { top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { transform: none !important; opacity: 1 !important; }
+  .slide-cover { clip-path: none !important; }
+  .slide-info > * { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .matrix-rain { display: none; }
+}

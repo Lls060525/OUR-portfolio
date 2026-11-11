@@ -1,6 +1,6 @@
 import { personById, projectsFor, asset } from '../data.js'
 import { href } from '../router.js'
-import { ProjectGrid, Tags, Avatar, SectionTitle } from '../components.jsx'
+import { ProjectBrowser, Tags, Avatar, SectionTitle } from '../components.jsx'
 
 export default function Person({ id }) {
   const person = personById(id)
@@ -16,9 +16,9 @@ export default function Person({ id }) {
       <section className="hero profile">
         <Avatar person={person} size="lg" />
         <div>
-          <p className="eyebrow"><span className="pulse" />{person.role}</p>
-          <h1 style={{ viewTransitionName: `name-${person.id}` }}>{person.name}</h1>
-          <p className="lead">{person.bio}</p>
+          <p className="eyebrow" data-print="seq"><span className="pulse" />{person.role}</p>
+          <h1 data-print="decode-seq" style={{ viewTransitionName: `name-${person.id}` }}>{person.name}</h1>
+          <p className="lead" data-print="seq">{person.bio}</p>
           <div className="actions">
             {resume && <a className="btn primary" href={asset(resume)} target="_blank" rel="noopener noreferrer">Résumé ↗</a>}
             {github && <a className="btn" href={github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
@@ -29,8 +29,8 @@ export default function Person({ id }) {
       </section>
 
       <section>
-        <SectionTitle index={1}>Projects <span className="count">[{mine.length}]</span></SectionTitle>
-        <ProjectGrid items={mine} focusId={person.id} />
+        <SectionTitle index={1}>Projects &amp; competitions <span className="count">[{mine.length}]</span></SectionTitle>
+        <ProjectBrowser items={mine} focusId={person.id} />
       </section>
     </>
   )

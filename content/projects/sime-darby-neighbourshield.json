@@ -1,7 +1,8 @@
 {
   "title": "NeighbourShield",
   "summary": "Township safety system: one-tap SOS with GPS, volunteer responders, WhatsApp alerts and an admin command dashboard. Built for the Sime Darby hackathon.",
-  "category": "hackathon",
+  "category": "competition",
+  "competition": "hackathon",
   "event": "Sime Darby Hackathon",
   "date": "2026-10",
   "featured": true,

@@ -19,6 +19,34 @@ export const shortName = (p) => p?.short || p?.name || ''
 
 export const personById = (id) => people.find((p) => p.id === id)
 
+// ── categories ──────────────────────────────────────────────
+// category: "project" (personal / coursework) or "competition".
+// competition: "hackathon" | "ctf" | "other". The older category values
+// "hackathon" and "ctf" are still accepted and mean the same thing.
+export const COMPETITION_TYPES = {
+  hackathon: 'Hackathon',
+  ctf: 'CTF',
+  other: 'Competition',
+}
+
+export const isCompetition = (p) => ['competition', 'hackathon', 'ctf'].includes(p.category)
+
+export const competitionType = (p) => {
+  if (!isCompetition(p)) return null
+  const t = p.category === 'competition' ? p.competition : p.category
+  return COMPETITION_TYPES[t] ? t : 'other'
+}
+
+// The label shown on a card badge.
+export const kindLabel = (p) => (isCompetition(p) ? COMPETITION_TYPES[competitionType(p)] : 'Project')
+
+// filter: { kind: 'all' | 'project' | 'competition', type: 'all' | 'hackathon' | 'ctf' | 'other' }
+export const matchesFilter = (p, { kind, type }) => {
+  if (kind === 'project') return !isCompetition(p) || !!p.alsoProject
+  if (kind === 'competition') return isCompetition(p) && (type === 'all' || competitionType(p) === type)
+  return true
+}
+
 export const projectsFor = (personId) =>
   projects.filter((p) => p.contributors?.some((c) => c.id === personId))
 

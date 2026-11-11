@@ -1,4 +1,4 @@
-import { projects, personById, formatDate } from '../data.js'
+import { projects, personById, formatDate, kindLabel } from '../data.js'
 import { href } from '../router.js'
 import { Tags, Cover, initials, STATUS } from '../components.jsx'
 
@@ -33,7 +33,7 @@ export default function Project({ slug }) {
 
       <p className="eyebrow">
         <span className="pulse" />
-        {[p.event || (p.category === 'hackathon' ? 'hackathon' : 'project'), formatDate(p.date), STATUS[p.status]]
+        {[kindLabel(p), p.event, formatDate(p.date), STATUS[p.status]]
           .filter(Boolean).join(' // ')}
       </p>
       <h1 style={{ viewTransitionName: `title-${p.slug}` }}>{p.title}</h1>

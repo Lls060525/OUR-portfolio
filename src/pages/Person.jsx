@@ -1,6 +1,6 @@
 import { personById, projectsFor, asset } from '../data.js'
 import { href } from '../router.js'
-import { ProjectGrid, Tags, Avatar, SectionTitle } from '../components.jsx'
+import { ProjectBrowser, Tags, Avatar, SectionTitle } from '../components.jsx'
 
 export default function Person({ id }) {
   const person = personById(id)
@@ -29,8 +29,8 @@ export default function Person({ id }) {
       </section>
 
       <section>
-        <SectionTitle index={1}>Projects <span className="count">[{mine.length}]</span></SectionTitle>
-        <ProjectGrid items={mine} focusId={person.id} />
+        <SectionTitle index={1}>Projects &amp; competitions <span className="count">[{mine.length}]</span></SectionTitle>
+        <ProjectBrowser items={mine} focusId={person.id} />
       </section>
     </>
   )

@@ -18,18 +18,17 @@ export default function BootScreen({ title, lines, onExit, onDone }) {
   useEffect(() => {
     const total = reduced() ? 500 : 2300
     const start = performance.now()
-    let raf
-    const tick = (now) => {
-      const t = Math.min(1, (now - start) / total)
+    // a timer, not requestAnimationFrame: frames pause in background tabs and
+    // the boot must still finish there
+    const id = setInterval(() => {
+      const t = Math.min(1, (performance.now() - start) / total)
       // stutter a little, like a real loader
-      const eased = t < 1 ? Math.min(t, Math.floor((t + Math.sin(t * 18) * 0.02) * 40) / 40) : 1
+      const eased = t < 1 ? Math.floor(t * 40) / 40 : 1
       setPct(Math.round(eased * 100))
       setShown(Math.min(lines.length, Math.floor(t * (lines.length + 0.6))))
-      if (t < 1) raf = requestAnimationFrame(tick)
-      else setPhase('granted')
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+      if (t >= 1) { clearInterval(id); setPhase('granted') }
+    }, 30)
+    return () => clearInterval(id)
   }, [lines.length])
 
   // granted → exit → done

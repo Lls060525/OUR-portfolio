@@ -103,7 +103,8 @@ export function ProximityText({ text, highlight }) {
       running = moving
       if (moving) raf = requestAnimationFrame(frame)
     }
-    const kick = () => { if (!running) { running = true; raf = requestAnimationFrame(frame) } }
+    // re-measure at the start of each burst: the matrix print can shift letters
+    const kick = () => { if (!running) { measure(); running = true; raf = requestAnimationFrame(frame) } }
     const onMove = (e) => { mx = e.clientX; my = e.clientY; kick() }
     const onLeave = () => { mx = my = -1e4; kick() }
     window.addEventListener('pointermove', onMove, { passive: true })

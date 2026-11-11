@@ -58,6 +58,11 @@ All in `src/fx/`, no extra dependencies, and all switched off (or shortened) whe
 | `text.jsx` | `ProximityText` (headline letters lean toward the pointer) and `Scramble` (decode-on-hover titles). |
 | `TeamGlobe.jsx` | Canvas 3D globe. Members sit on the +X, +Y, +Z axes (then -X, -Y, -Z…). Drag to rotate, Shift+drag to roll, arrow keys / Q / E / Enter on keyboard. |
 | `HoloCard.jsx` | The projected name card for the selected member. |
+| `motion.js` | Smooth scrolling (Lenis), scroll "scenes" (anything with class `scene` tilts back and fades out of focus; the one in focus gets `.live`), soft snap to project slides, and the matrix print. |
+| `MatrixRain.jsx` | Glyph rain behind the page: dense right after boot, then a faint drizzle. |
+| `scenes.css` | Styles for the above, including the project slide deck. |
+
+To make text print in, add `data-print="seq"` (in order, when the page opens), `"view"` (when scrolled into view), or `"decode-seq"` / `"decode"` (same, but the text stays visible and resolves in place).
 
 ## Deploying
 

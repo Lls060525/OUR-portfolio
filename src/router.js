@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { resetScroll } from './fx/motion.js'
 
 // Tiny hash router: #/  #/people/<id>  #/projects/<slug>
 // Hash URLs work on GitHub Pages and Vercel with no server rewrites.
@@ -24,7 +25,7 @@ export function useRoute() {
 
       const update = () => {
         flushSync(() => setRoute(next))
-        window.scrollTo(0, 0)
+        resetScroll()
       }
 
       if (document.startViewTransition && !reducedMotion()) document.startViewTransition(update)

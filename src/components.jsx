@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { href } from './router.js'
 import {
   asset, formatDate, personById, shortName,
   competitionType, kindLabel, matchesFilter, COMPETITION_TYPES,
 } from './data.js'
-import { Scramble } from './fx/text.jsx'
+import { printElement } from './fx/motion.js'
 
 // Moves a soft glow to follow the pointer on cards.
 export const spotlight = (e) => {
@@ -54,51 +54,69 @@ export function Cover({ project, className = '', noVT = false }) {
   )
 }
 
-// noVT: used when the same project appears twice on a page — view-transition names must be unique.
-export function ProjectCard({ project, focusId, index = 0, noVT = false }) {
+// One project as a full-height "slide". While it is the scene in focus it gets
+// .live (see fx/motion.js): the cover scans in and the text prints out of glyphs.
+// Scrolling away dissolves it again.
+export function ProjectSlide({ project, focusId, index = 0, total = 1 }) {
+  const ref = useRef(null)
   const mine = focusId && project.contributors?.find((c) => c.id === focusId)
   const who = project.contributors?.map((c) => shortName(personById(c.id)) || c.name).filter(Boolean)
+  const link = href('projects', project.slug)
+
+  useEffect(() => {
+    const el = ref.current
+    const onEnter = () => {
+      el.querySelectorAll('[data-sp]').forEach((n, i) => {
+        setTimeout(() => printElement(n, { blank: false, speed: 7, max: 700 }), 120 + i * 90)
+      })
+    }
+    el.addEventListener('scene-enter', onEnter)
+    return () => el.removeEventListener('scene-enter', onEnter)
+  }, [])
 
   return (
-    <a
-      className="card glass reveal"
-      href={href('projects', project.slug)}
-      data-cursor="VIEW CASE →"
-      onPointerMove={spotlight}
-      style={{ '--i': index }}
-    >
-      <div className="card-cover">
-        <Cover project={project} noVT={noVT} />
-        <div className="badges">
-          <span className={`badge badge-${competitionType(project) || 'project'}`}>{kindLabel(project)}</span>
-          {STATUS[project.status] && <span className="badge badge-live"><span className="pulse" />{STATUS[project.status]}</span>}
+    <article ref={ref} className="slide scene" onPointerMove={spotlight}>
+      <div className="slide-inner glass">
+        <a className="slide-cover" href={link} data-cursor="VIEW CASE →" tabIndex={-1} aria-hidden="true">
+          <Cover project={project} />
+          <span className="slide-scan" />
+          <div className="badges">
+            <span className={`badge badge-${competitionType(project) || 'project'}`}>{kindLabel(project)}</span>
+            {STATUS[project.status] && <span className="badge badge-live"><span className="pulse" />{STATUS[project.status]}</span>}
+          </div>
+        </a>
+
+        <div className="slide-info">
+          <div className="slide-index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}<span>/{String(total).padStart(2, '0')}</span>
+          </div>
+          <p className="meta" data-sp>{[project.event || formatDate(project.date) || 'Project'].join('')}</p>
+          <h3 style={{ viewTransitionName: `title-${project.slug}` }}>
+            <a href={link} data-sp data-cursor="VIEW CASE →">{project.title}</a>
+          </h3>
+          <p className="slide-summary" data-sp>{project.summary}</p>
+          {mine && <p className="role"><span>my role</span>{mine.did}</p>}
+          {who?.length > 0 && <div className="meta">by {who.join(' · ')}</div>}
+          <Tags items={project.tech} />
+          <a className="btn slide-open" href={link} data-cursor="OPEN CASE">Open case study →</a>
         </div>
       </div>
-      <div className="card-body">
-        <div className="meta meta-top">{[project.event, !project.event && formatDate(project.date)].filter(Boolean).join('') || 'Project'}</div>
-        <h3 style={{ viewTransitionName: noVT ? 'none' : `title-${project.slug}` }}><Scramble text={project.title} /></h3>
-        <p>{project.summary}</p>
-        {mine && <p className="role"><span>my role</span>{mine.did}</p>}
-        {who?.length > 0 && <div className="meta">by {who.join(' · ')}</div>}
-        <Tags items={project.tech} />
-        <span className="card-arrow" aria-hidden="true">→</span>
-      </div>
-    </a>
+    </article>
   )
 }
 
-export function ProjectGrid({ items, focusId, noVTFor = [] }) {
+export function ProjectDeck({ items, focusId }) {
   if (!items.length) return <p className="muted">Nothing here yet.</p>
   return (
-    <div className="grid">
-      {items.map((p, i) => <ProjectCard key={p.slug} project={p} focusId={focusId} index={i} noVT={noVTFor.includes(p.slug)} />)}
+    <div className="deck">
+      {items.map((p, i) => <ProjectSlide key={p.slug} project={p} focusId={focusId} index={i} total={items.length} />)}
     </div>
   )
 }
 
 export function SectionTitle({ index, children }) {
   return (
-    <h2 className="section-title">
+    <h2 className="section-title" data-print="view">
       <span className="section-index">{String(index).padStart(2, '0')}</span>
       {children}
     </h2>
@@ -169,7 +187,7 @@ export function ProjectBrowser({ items, focusId }) {
   return (
     <>
       <FilterBar items={items} filter={filter} setFilter={setFilter} />
-      <ProjectGrid items={shown} focusId={focusId} />
+      <ProjectDeck items={shown} focusId={focusId} />
     </>
   )
 }

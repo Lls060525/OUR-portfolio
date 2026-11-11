@@ -13,16 +13,16 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero">
-        <p className="eyebrow"><span className="pulse" />{site.tag}<span className="caret">_</span></p>
-        <h1>
+      <section className="hero scene">
+        <p className="eyebrow" data-print="seq"><span className="pulse" />{site.tag}<span className="caret">_</span></p>
+        <h1 data-print="seq">
           <ProximityText text={site.headline} highlight={site.highlight} />
         </h1>
-        <p className="lead">
+        <p className="lead" data-print="seq">
           {site.intro}
         </p>
 
-        <dl className="hud">
+        <dl className="hud" data-print="seq">
           <div><dt>Projects</dt><dd>{builds.length}</dd></div>
           <div><dt>Competitions</dt><dd>{competitions.length}</dd></div>
           <div><dt>Technologies</dt><dd>{techCount}</dd></div>
@@ -32,7 +32,7 @@ export default function Home() {
 
       <section>
         <SectionTitle index={1}>The team</SectionTitle>
-        <div className="team-stage reveal">
+        <div className="team-stage scene">
           <div className="globe-col">
             <TeamGlobe people={people} active={active} onActive={setActive} />
             <div className="member-switch" role="tablist" aria-label="Team members">

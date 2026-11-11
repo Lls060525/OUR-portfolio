@@ -16,9 +16,9 @@ export default function Person({ id }) {
       <section className="hero profile">
         <Avatar person={person} size="lg" />
         <div>
-          <p className="eyebrow"><span className="pulse" />{person.role}</p>
-          <h1 style={{ viewTransitionName: `name-${person.id}` }}>{person.name}</h1>
-          <p className="lead">{person.bio}</p>
+          <p className="eyebrow" data-print="seq"><span className="pulse" />{person.role}</p>
+          <h1 data-print="decode-seq" style={{ viewTransitionName: `name-${person.id}` }}>{person.name}</h1>
+          <p className="lead" data-print="seq">{person.bio}</p>
           <div className="actions">
             {resume && <a className="btn primary" href={asset(resume)} target="_blank" rel="noopener noreferrer">Résumé ↗</a>}
             {github && <a className="btn" href={github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}

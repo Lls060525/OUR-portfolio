@@ -1,0 +1,15 @@
+# Security headers for Cloudflare Pages (same policy as vercel.json).
+# Vite copies everything in /public into the build, and Cloudflare reads this file from there.
+# If you add a third-party script, font or embed, add its domain to the CSP below or it will be blocked.
+
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; style-src 'self' https://fonts.googleapis.com; script-src 'self' https://static.cloudflareinsights.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Vite puts a content hash in these file names, so they can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

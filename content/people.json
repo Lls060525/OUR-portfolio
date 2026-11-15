@@ -53,5 +53,23 @@
       "linkedin": "https://www.linkedin.com/in/username",
       "resume": ""
     }
+  },
+  {
+    "id": "tan-yong-sheng",
+    "name": "Tan Yong Sheng",
+    "short": "Yong Sheng",
+    "role": "Bachelor of Data Science",
+    "tagline": "One line about what Yong Sheng is best at.",
+    "bio": "Replace with 2–3 sentences about Yong Sheng.",
+    "skills": [
+      "Python",
+      "Data analysis",
+      "Flutter"
+    ],
+    "links": {
+      "github": "https://github.com/theycallmewinson",
+      "linkedin": "",
+      "resume": ""
+    }
   }
 ]
